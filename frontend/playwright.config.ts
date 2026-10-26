@@ -55,7 +55,7 @@ export default defineConfig({
   webServer: process.env.E2E_NO_WEBSERVER
     ? undefined
     : {
-        command: `pnpm dev --port ${PORT}`,
+        command: `pnpm dev --host ${HOST} --port ${PORT} --strictPort`,
         url: BASE_URL,
         reuseExistingServer: !process.env.CI,
         timeout: 120_000,

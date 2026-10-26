@@ -48,12 +48,18 @@ async def db_setup(tmp_path):
 class _FakeProc:
     """Stand-in for an :class:`asyncio.subprocess.Process`."""
 
-    def __init__(self, pid: int = 4242, exit_code: int = 0, delay: float = 0.0):
+    def __init__(
+        self, pid: int = 4242, exit_code: int = 0, delay: float = 0.0,
+        exit_allowed: asyncio.Event | None = None,
+    ):
         self.pid = pid
         self._code = exit_code
         self._delay = delay
+        self._exit_allowed = exit_allowed
 
     async def wait(self) -> int:
+        if self._exit_allowed is not None:
+            await self._exit_allowed.wait()
         if self._delay:
             await asyncio.sleep(self._delay)
         return self._code
@@ -62,12 +68,22 @@ class _FakeProc:
 @pytest.mark.asyncio
 async def test_spawn_fork_updates_pid_and_status(db_setup, monkeypatch):
     db_path, runs_dir = db_setup
-    proc = _FakeProc(pid=9999, exit_code=0)
+    exit_allowed = asyncio.Event()
+    watcher_finished = asyncio.Event()
+    proc = _FakeProc(pid=9999, exit_code=0, exit_allowed=exit_allowed)
+    watch_subprocess = supervisor._watch_subprocess
+
+    async def observe_watcher(*args):
+        try:
+            await watch_subprocess(*args)
+        finally:
+            watcher_finished.set()
 
     async def fake_exec(*args, **kwargs):
         return proc
 
     monkeypatch.setattr(asyncio, "create_subprocess_exec", fake_exec)
+    monkeypatch.setattr(supervisor, "_watch_subprocess", observe_watcher)
 
     pid = await supervisor.spawn_fork(
         db_path=db_path,
@@ -83,25 +99,25 @@ async def test_spawn_fork_updates_pid_and_status(db_setup, monkeypatch):
     )
     assert pid == 9999
 
-    async with open_db(db_path) as db:
-        cur = await db.execute(
-            "SELECT pid, status FROM runs WHERE id='FORK1'"
-        )
-        row = await cur.fetchone()
-    assert row[0] == 9999
-    assert row[1] == "running"
-
-    # Drain the watcher task so completion is recorded.
-    await asyncio.sleep(0.05)
-    for _ in range(20):
+    try:
         async with open_db(db_path) as db:
             cur = await db.execute(
-                "SELECT status, exit_code FROM runs WHERE id='FORK1'"
+                "SELECT pid, status FROM runs WHERE id='FORK1'"
             )
             row = await cur.fetchone()
-        if row[0] == "completed":
-            break
-        await asyncio.sleep(0.05)
+        assert row[0] == 9999
+        assert row[1] == "running"
+    finally:
+        # Hold the fake process open until the running state is inspected,
+        # then await the actual watcher rather than relying on a sleep.
+        exit_allowed.set()
+        await asyncio.wait_for(watcher_finished.wait(), timeout=5)
+
+    async with open_db(db_path) as db:
+        cur = await db.execute(
+            "SELECT status, exit_code FROM runs WHERE id='FORK1'"
+        )
+        row = await cur.fetchone()
     assert row[0] == "completed"
     assert row[1] == 0
 

@@ -36,4 +36,14 @@ jobs:
         env:
           E2E_TEST_AUTH: '1'
           E2E_PLAYWRIGHT: '1'
+      - name: Upload browser failure diagnostics
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-diagnostics
+          path: |
+            frontend/playwright-report/
+            frontend/test-results/
+          if-no-files-found: ignore
+          retention-days: 7
       - run: pnpm build
