@@ -1,0 +1,22 @@
+{TIME_CONTEXT}
+
+== Account State ==
+{PORTFOLIO_SUMMARY}
+
+== Daily Price Summary (MAs, trend, 20-bar range, last 10 days OHLC) ==
+{DAILY_PRICE_CONTEXT}
+
+== Intraday Price Trend & Technicals ==
+{PRICE_TREND}
+
+== Option Chain ==
+{CHAIN_CONTEXT}
+
+== Recent News ==
+{NEWS_CONTEXT}
+
+== Upcoming Earnings ==
+{EARNINGS_CONTEXT}
+
+Analyze the daily trend, intraday price action, option chain, and news/events above.
+Provide your trading intention as a JSON object.

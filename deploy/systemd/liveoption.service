@@ -1,0 +1,18 @@
+[Unit]
+Description=LiveOption Web and internal API
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+WorkingDirectory=%h/LiveOption
+ExecStart=%h/LiveOption/.venv/bin/liveoption web
+Environment=PYTHONUNBUFFERED=1
+Restart=on-failure
+RestartSec=5
+KillMode=control-group
+TimeoutStopSec=30
+NoNewPrivileges=true
+
+[Install]
+WantedBy=default.target

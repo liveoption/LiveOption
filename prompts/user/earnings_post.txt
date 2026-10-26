@@ -1,0 +1,27 @@
+=== POST-EARNINGS MANAGEMENT — {TICKER} ===
+Date: {DATE} | Time: {TIME_ET} ET | Earnings day: {EARNINGS_DATE}
+Post-earnings day {POST_DAY} of 2
+
+== Earnings Results ==
+EPS: {ACTUAL_EPS} actual vs {ESTIMATED_EPS} est -> Surprise: {EPS_SURPRISE}
+Revenue: {ACTUAL_REVENUE} actual vs {ESTIMATED_REVENUE} est -> Surprise: {REV_SURPRISE}
+
+== Price Gap ==
+{GAP_INFO}
+
+== Account State ==
+Cash: ${CASH} | Equity: ${EQUITY}
+
+== Current Positions (entry cost basis vs current mark) ==
+{POSITIONS_TABLE}
+
+== Your Pre-earnings Prediction ==
+{PREDICTION_RECAP}
+
+== Post-earnings News ==
+{NEWS_SECTION}
+
+== Live Option Chain (7-14 DTE) ==
+{CHAIN_CONTEXT}
+
+Assess the post-earnings situation. Provide your assessment, strategy intent, and stop signal as a JSON object.

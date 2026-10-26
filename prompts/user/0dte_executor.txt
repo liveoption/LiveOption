@@ -1,0 +1,13 @@
+Minutes to close: {MINUTES_TO_CLOSE}
+
+== Analysis Agent Output ==
+{ANALYSIS_JSON}
+
+== Available 0DTE Contracts ==
+{TRADABLE_CONTRACTS}
+
+== Current Positions ==
+{POSITIONS_SUMMARY}
+
+Construct your order plan as a JSON array based on the analysis above.
+Remember: all contracts must expire today (DTE=0). Prefer liquid, non-stale contracts.

@@ -1,0 +1,38 @@
+experiment:
+  run_id: overlay_profit_nvda_2025
+  seed: 42
+  start: "2025-01-02"
+  end: "2025-12-31"
+  universe: [NVDA]
+  frequency: "1d"
+  initial_cash: 1_671_720.0  # 10K * $139.31 stock + 20% cash buffer ($278,620)
+  initial_positions:
+    - symbol: NVDA
+      qty: 10000
+
+strategy:
+  name: overlay_profit
+  params:
+    stock_qty: 10000
+    cash_buffer_pct: 0.20
+    dte_min: 7
+    dte_max: 45
+    otm_pct: 0.05
+    rebalance_weekday: 0
+    llm_provider: deepseek
+    llm_model: deepseek-chat
+
+risk:
+  flatten_before_close: false
+  max_daily_loss_pct: 0
+  circuit_breaker_loss_pct: 0
+  max_exposure_pct: 99999.0
+  max_position_per_symbol: 20000
+  allow_naked_short_options: true
+
+data_policy:
+  max_stale_minutes: 5
+  chain_filter_dte_min: 7
+  chain_filter_dte_max: 45
+  chain_filter_delta_min: 0.10
+  chain_filter_delta_max: 0.70

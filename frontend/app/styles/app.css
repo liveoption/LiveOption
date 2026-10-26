@@ -1,0 +1,277 @@
+/*
+ * LiveOption — global styles (HeroUI v3 + Tailwind v4).
+ *
+ * Order is load-bearing: Tailwind first, HeroUI styles second (HeroUI needs
+ * Tailwind utilities to compose its variants). Theme tokens + our own
+ * typographic primitives come last so they can override HeroUI defaults
+ * without the `!important` dance.
+ *
+ * Compact QFinZero-inspired research dashboard: neutral panels, blue actions,
+ * dense controls, and monospaced numeric data.
+ */
+
+/* System font stacks keep local/offline startup independent of font CDNs. */
+
+@import "tailwindcss";
+@import "@heroui/react/styles";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* --------------------------------------------------------------------- */
+/* Theme tokens                                                          */
+/* --------------------------------------------------------------------- */
+
+@theme {
+  /* Typography ------------------------------------------------------- */
+  --font-display: "Geist", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Geist", ui-sans-serif, system-ui, -apple-system, "Helvetica Neue", sans-serif;
+  --font-mono: "JetBrains Mono", "SF Mono", ui-monospace, Menlo, monospace;
+
+  /* Paper-and-ink palette. "ink" is our near-black; "paper" our ivory. */
+  --color-paper: oklch(0.978 0.004 250);
+  --color-paper-2: oklch(0.956 0.007 250);
+  --color-ink: oklch(0.22 0.02 250);
+  --color-ink-soft: oklch(0.48 0.018 250);
+  --color-rule: oklch(0.89 0.009 250);
+  --color-neutral-500: oklch(0.43 0 0);
+
+  /* Accents: indigo (primary), lime (live), amber (staged), rose (error) */
+  --color-primary-50:  oklch(0.97 0.015 255);
+  --color-primary-100: oklch(0.93 0.035 255);
+  --color-primary-200: oklch(0.85 0.065 255);
+  --color-primary-300: oklch(0.75 0.105 255);
+  --color-primary-400: oklch(0.65 0.15 255);
+  --color-primary-500: oklch(0.56 0.17 255);
+  --color-primary-600: oklch(0.48 0.16 255);
+  --color-primary-700: oklch(0.40 0.13 255);
+  --color-primary-800: oklch(0.32 0.10 255);
+  --color-primary-900: oklch(0.25 0.07 255);
+
+  --color-accent: oklch(0.64 0.16 150);
+  --color-accent-ink: oklch(0.30 0.08 150);
+}
+/* --------------------------------------------------------------------- */
+/* Dark mode palette — deep indigo-dark, lime accent reserved for live state   */
+/* --------------------------------------------------------------------- */
+
+:where(.dark, .dark *) {
+  --color-paper:    oklch(0.13  0.020 275);
+  --color-paper-2: oklch(0.18  0.025 275);
+  --color-ink:      oklch(0.92  0.005 275);
+  --color-ink-soft: oklch(0.65  0.015 275);
+  --color-rule:     oklch(0.28  0.020 275);
+
+  --color-primary-50:  oklch(0.82  0.050 275);
+  --color-primary-100: oklch(0.76  0.080 275);
+  --color-primary-200: oklch(0.68  0.120 275);
+  --color-primary-300: oklch(0.60  0.160 275);
+  --color-primary-400: oklch(0.54  0.180 275);
+  --color-primary-500: oklch(0.48  0.190 275);
+  --color-primary-600: oklch(0.42  0.170 275);
+  --color-primary-700: oklch(0.36  0.140 275);
+  --color-primary-800: oklch(0.30  0.100 275);
+  --color-primary-900: oklch(0.25  0.070 275);
+
+  --color-accent:       oklch(0.78  0.180 128);
+  --color-accent-ink:   oklch(0.20  0.100 128);
+  --color-accent-positive: oklch(0.72  0.19  145);
+
+  /* Neutral dark-mode tokens — replace native Tailwind dark: classes */
+  --color-neutral-50:  oklch(0.96  0.000  0);
+  --color-neutral-100: oklch(0.93  0.000  0);
+  --color-neutral-200: oklch(0.86  0.000  0);
+  --color-neutral-300: oklch(0.75  0.000  0);
+  --color-neutral-400: oklch(0.62  0.000  0);
+  --color-neutral-500: oklch(0.49  0.000  0);
+  --color-neutral-600: oklch(0.40  0.000  0);
+  --color-neutral-700: oklch(0.31  0.000  0);
+  --color-neutral-800: oklch(0.22  0.000  0);
+  --color-neutral-900: oklch(0.14  0.000  0);
+  --color-neutral-950: oklch(0.10  0.000  0);
+
+  /* Semantic dark-mode tokens for common use cases */
+  --color-bg-subtle:   oklch(0.18  0.025 275);
+  --color-bg-ink:      oklch(0.14  0.010 275);
+
+  /* Status dark-mode tokens */
+  --color-amber-50:  oklch(0.94  0.040  75);
+  --color-amber-200: oklch(0.80  0.080  75);
+  --color-amber-900: oklch(0.35  0.060  75);
+  --color-amber-950: oklch(0.20  0.040  75);
+  --color-emerald-100: oklch(0.86  0.060 160);
+  --color-emerald-200: oklch(0.75  0.100 160);
+  --color-emerald-300: oklch(0.65  0.120 160);
+  --color-emerald-400: oklch(0.70  0.140 160);
+  --color-emerald-950: oklch(0.18  0.050 160);
+  --color-red-100:   oklch(0.88  0.050   25);
+  --color-red-200:   oklch(0.80  0.080   25);
+  --color-red-300:   oklch(0.70  0.100   25);
+  --color-red-400:   oklch(0.65  0.120   25);
+  --color-red-900:   oklch(0.35  0.060   25);
+  --color-red-950:   oklch(0.20  0.040   25);
+  --color-sky-100:   oklch(0.90  0.040  220);
+  --color-sky-300:   oklch(0.70  0.100  220);
+  --color-sky-900:   oklch(0.30  0.060  220);
+  --color-indigo-50:  oklch(0.93  0.040  275);
+  --color-indigo-300: oklch(0.65  0.120  275);
+  --color-indigo-900: oklch(0.30  0.060  275);
+}
+
+
+
+/* --------------------------------------------------------------------- */
+/* Page shell                                                            */
+/* --------------------------------------------------------------------- */
+
+html,
+body {
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  font-feature-settings: "ss01", "ss02", "cv11";
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Subtle paper grain. Purely decorative; pointer-events off so it never
+ * intercepts clicks. 0.035 alpha keeps it under the radar on retina. */
+body::before { display: none; }
+
+#root,
+main {
+  position: relative;
+  z-index: 1;
+}
+
+/* --------------------------------------------------------------------- */
+/* Typographic primitives                                                */
+/* --------------------------------------------------------------------- */
+
+.lo-display {
+  font-family: var(--font-display);
+  font-optical-sizing: auto;
+  letter-spacing: -0.025em;
+  line-height: 1.15;
+}
+
+.lo-eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-ink-soft);
+}
+
+.lo-mono {
+  font-family: var(--font-mono);
+  font-feature-settings: "ss01", "zero";
+}
+
+.lo-rule { border-color: var(--color-rule); }
+
+.lo-panel {
+  border: 1px solid var(--color-rule);
+  border-radius: 8px;
+  background: #fff;
+  box-shadow: 0 1px 2px rgba(15, 23, 42, .025);
+}
+
+:where(.dark) .lo-panel { background: var(--color-paper-2); }
+
+.lo-status {
+  border: 1px solid var(--color-primary-200);
+  border-radius: 4px;
+  background: var(--color-primary-50);
+  padding: 3px 7px;
+  color: var(--color-primary-700);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: .07em;
+}
+
+/* HeroUI's soft chip foregrounds are too pale at small label sizes. */
+html:not(.dark) .chip--success .chip__label { color: #075d36; }
+html:not(.dark) .chip--warning .chip__label { color: #784600; }
+html:not(.dark) .chip--accent .chip__label { color: #075a9e; }
+html:not(.dark) .chip--danger .chip__label { color: #991e30; }
+
+.lo-field { display: flex; flex-direction: column; gap: 6px; }
+.lo-field > span { color: var(--color-ink-soft); font-size: 12px; font-weight: 600; }
+.lo-field input, .lo-field select, .lo-panel textarea {
+  width: 100%;
+  border: 1px solid var(--color-rule);
+  border-radius: 6px;
+  background: var(--color-paper);
+  padding: 9px 11px;
+  color: var(--color-ink);
+  font-size: 13px;
+  outline: none;
+}
+.lo-field input:focus, .lo-field select:focus, .lo-panel textarea:focus {
+  border-color: var(--color-primary-500);
+  box-shadow: 0 0 0 3px var(--color-primary-100);
+}
+
+.lo-runs-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.lo-runs-header {
+  display: none;
+}
+
+@media (min-width: 48rem) {
+  .lo-runs-grid {
+    grid-template-columns:
+      minmax(0, 120px)
+      minmax(0, 100px)
+      minmax(0, 80px)
+      minmax(0, 1fr)
+      minmax(0, 140px)
+      minmax(0, 60px);
+    align-items: center;
+    column-gap: 1rem;
+  }
+
+  .lo-runs-grid.lo-runs-grid--5 {
+    grid-template-columns:
+      minmax(0, 140px)
+      minmax(0, 100px)
+      minmax(0, 80px)
+      minmax(0, 1fr)
+      minmax(0, 160px);
+  }
+
+  .lo-runs-header {
+    display: grid;
+  }
+}
+
+/* Focus ring — opinionated, indigo. */
+:where(a, button, [role="button"], [tabindex]):focus-visible {
+  outline: 2px solid var(--color-primary-500);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* Ticker-style scrollbar for overflow regions inside cards. */
+.lo-scroll::-webkit-scrollbar { width: 10px; height: 10px; }
+.lo-scroll::-webkit-scrollbar-thumb {
+  background: var(--color-rule);
+  border: 2px solid var(--color-paper);
+  border-radius: 999px;
+}
+.lo-scroll::-webkit-scrollbar-thumb:hover { background: var(--color-ink-soft); }
+
+/* Single staggered reveal on first paint. Not scattered micro-interactions. */
+@keyframes lo-rise {
+  from { opacity: 0; transform: translate3d(0, 6px, 0); }
+  to   { opacity: 1; transform: translate3d(0, 0, 0); }
+}
+
+.lo-rise { animation: lo-rise 480ms cubic-bezier(0.2, 0.7, 0.2, 1) both; }
+.lo-rise-1 { animation-delay: 40ms; }
+.lo-rise-2 { animation-delay: 110ms; }
+.lo-rise-3 { animation-delay: 180ms; }
+.lo-rise-4 { animation-delay: 260ms; }

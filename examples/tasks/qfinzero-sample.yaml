@@ -1,0 +1,24 @@
+# QFinZero's bundled synthetic data; no commercial data account required.
+# Replace model_id with a registry ID returned by `liveoption task models`.
+protocol_version: liveoption.run.v1
+mode: custom
+cadence: intraday
+model_id: replace-with-a-configured-model-id
+title: QFinZero synthetic-data smoke
+context: Use only the supplied market data. Explain the decision to trade or hold.
+experiment:
+  start: '2025-03-24'
+  end: '2025-03-24'
+  initial_cash: 100000
+  universe: [QZSP]
+strategy_params:
+  decision_interval_minutes: 60
+  dte_min: 0
+  dte_max: 7
+data_policy:
+  news_enabled: true
+  news_lookback_days: 3
+execution:
+  option_fee_per_contract: 0.65
+  slippage_bps: 0
+  order_type_policy: market

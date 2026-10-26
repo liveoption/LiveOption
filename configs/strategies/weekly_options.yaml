@@ -1,0 +1,58 @@
+experiment:
+  run_id: weekly_options_2025
+  seed: 42
+  start: "2025-01-01"
+  end: "2025-12-31"
+  # Example universe with option data available through UPQ.
+  # BRK.B is listed as "BRKB" in UPQ
+  universe:
+    # Broad ETFs
+    - SPY
+    - QQQ
+    - IWM
+    - XLE
+    - TLT
+    # Mega-cap Tech
+    - NVDA
+    - AAPL
+    - MSFT
+    - AMZN
+    - META
+    - TSLA
+    # Defensive & Financial
+    - UNH
+    - JPM
+    - BRKB
+    - PG
+    # Semiconductor / AI
+    - AVGO
+    - TSM
+    # High Beta / MEME
+    - RGTI
+    - IREN
+    - HOOD
+    - COIN
+  frequency: "1d"
+
+strategy:
+  name: weekly_llm
+  params:
+    rebalance_frequency: weekly
+    rebalance_weekday: 0
+    llm_provider: deepseek
+    llm_model: deepseek-chat
+    dte_min: 7
+    dte_max: 60
+
+risk:
+  flatten_before_close: false
+  max_daily_loss_pct: 1.0
+  max_exposure_pct: 0.8
+
+data_policy:
+  max_stale_minutes: 999999
+  chain_filter_dte_min: 7
+  chain_filter_dte_max: 60
+  chain_filter_delta_min: 0.10
+  chain_filter_delta_max: 0.70
+  news_lookback_days: 7

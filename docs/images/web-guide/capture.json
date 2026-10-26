@@ -1,0 +1,80 @@
+{
+  "viewport": {
+    "width": 1440,
+    "height": 1060
+  },
+  "data": "QFinZero synthetic sample",
+  "model": "local scripted HOLD fixture",
+  "pages": [
+    {
+      "file": "qfinzero-data-setup.png",
+      "path": "/data-setup",
+      "locale": "en",
+      "width": 1440,
+      "height": 1060
+    },
+    {
+      "file": "qfinzero-data-availability.png",
+      "path": "/availability",
+      "locale": "en",
+      "width": 1440,
+      "height": 1060
+    },
+    {
+      "file": "liveoption-model-settings.png",
+      "path": "/settings/models",
+      "locale": "en",
+      "width": 1440,
+      "height": 1060
+    },
+    {
+      "file": "liveoption-new-task.png",
+      "path": "/runs/new",
+      "locale": "en",
+      "width": 1440,
+      "height": 1301
+    },
+    {
+      "file": "liveoption-trading-rules.png",
+      "path": "/runs/new",
+      "locale": "en",
+      "width": 1440,
+      "height": 1060
+    },
+    {
+      "file": "liveoption-agent-prompts.png",
+      "path": "/runs/new",
+      "locale": "en",
+      "width": 1440,
+      "height": 1060
+    },
+    {
+      "file": "liveoption-run-chart.png",
+      "path": "/runs/run_20261025T165435Z_fdd599",
+      "locale": "en",
+      "width": 1440,
+      "height": 1060
+    },
+    {
+      "file": "liveoption-prompt-viewer.png",
+      "path": "/runs/run_20261025T165435Z_fdd599",
+      "locale": "en",
+      "width": 1440,
+      "height": 1060
+    },
+    {
+      "file": "liveoption-results-report.png",
+      "path": "/runs/run_20261025T165435Z_fdd599",
+      "locale": "en",
+      "width": 1440,
+      "height": 1060
+    },
+    {
+      "file": "liveoption-run-logs.png",
+      "path": "/runs/run_20261025T165435Z_fdd599",
+      "locale": "en",
+      "width": 1440,
+      "height": 1060
+    }
+  ]
+}

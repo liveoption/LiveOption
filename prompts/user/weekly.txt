@@ -1,0 +1,18 @@
+Date: {DATE}
+
+== Account State ==
+Cash: ${CASH}  Equity: ${EQUITY}
+
+== Current Positions ==
+{POSITIONS_TABLE}
+
+== Available Option Chain (calls and puts, DTE {DTE_MIN}-{DTE_MAX}) ==
+{CHAIN_STR}
+
+== Recent News (last 7 days, universe-relevant) ==
+{NEWS_STR}
+
+== Upcoming Earnings (next 14 days) ==
+{EARNINGS_STR}
+
+Based on the above, provide your trading decision as a JSON array.

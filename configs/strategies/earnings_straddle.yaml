@@ -1,0 +1,82 @@
+# Earnings Bet Strategy Config
+# Model is selected from configs/models.yaml; override with CLI --model flag
+model: mock
+
+experiment:
+  run_id: earnings_straddle_2025
+  seed: 42
+  start: "2025-01-01"
+  end: "2025-12-31"
+  # $10,000 per case — this is a betting scenario, agent should fully utilise the budget
+  initial_cash: 50000
+  universe:
+    # Mega-cap Tech
+    - AAPL
+    - MSFT
+    - TSLA
+    - AMZN
+    - META
+    - NVDA
+    # Semiconductor
+    - AMD
+    - INTC
+    - MU
+    - AVGO
+    # Consumer & Streaming
+    - NFLX
+    - DIS
+    - NKE
+    # Cloud / SaaS
+    - CRM
+    - SNOW
+    - PLTR
+    # Fintech & Crypto-adjacent
+    - HOOD
+    - COIN
+    - SOFI
+    - PYPL
+    # High Beta / Growth
+    - SHOP
+    - RKLB
+    - SMCI
+    - CELH
+  # 1m frequency: pre-T uses daily-close gate; post-T uses intraday interval gate
+  frequency: "1m"
+
+strategy:
+  name: earnings_straddle
+  params:
+    # Cap each trade at 40% of equity so a single bad bet can't blow up the account.
+    # Backtesting showed full-budget deployment led to -430% losses when spread legs
+    # became imbalanced after risk adjustment.
+    max_position_cost: 30000
+    max_contracts: 50
+    auto_close_at_t2: true
+    # Weekly/bi-weekly options only (7-14 DTE)
+    dte_min: 7
+    dte_max: 14
+    # Post-earnings intraday: LLM decision every 30 minutes
+    post_decision_interval_minutes: 30
+    # Portfolio snapshot interval (minutes) for logging
+    portfolio_snapshot_interval: 5
+
+risk:
+  flatten_before_close: false
+  # Betting account: allow up to 50% daily loss before circuit breaker.
+  # 3% default (=$300 on $10k) fires on normal intraday option moves.
+  max_daily_loss_pct: 0.50
+  circuit_breaker_loss_pct: 0.40
+  # 40% exposure cap per trade keeps budget available for T-1 adjustment
+  # and prevents over-concentration in a single bet.
+  max_exposure_pct: 0.40
+  max_orders_per_day: 50
+  # NO naked short options — spread legs must always be paired.
+  # The risk gate normalizes spread leg quantities post-evaluation.
+  allow_naked_short_options: false
+
+data_policy:
+  max_stale_minutes: 10080
+  chain_filter_dte_min: 7
+  chain_filter_dte_max: 14
+  chain_filter_delta_min: 0.10
+  chain_filter_delta_max: 0.70

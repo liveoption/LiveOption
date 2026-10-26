@@ -1,0 +1,27 @@
+# Replace this example hostname with a domain you control.
+liveoption.example.com {
+	encode zstd gzip
+	header {
+		Strict-Transport-Security "max-age=31536000"
+		X-Content-Type-Options "nosniff"
+		X-Frame-Options "DENY"
+		Referrer-Policy "strict-origin-when-cross-origin"
+		-Server
+	}
+
+	@sse path /api/runs/*/events /api/questions/*/stream
+	handle @sse {
+		header {
+			Cache-Control "no-cache, no-transform"
+			X-Accel-Buffering "no"
+			Content-Encoding "identity"
+		}
+		reverse_proxy 127.0.0.1:3001 {
+			flush_interval -1
+		}
+	}
+
+	handle {
+		reverse_proxy 127.0.0.1:3001
+	}
+}

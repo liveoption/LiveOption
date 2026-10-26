@@ -1,0 +1,7 @@
+Date: {DATE}
+T+2 deadline reached for {TICKER} earnings event.
+
+## Positions to Close
+{POSITIONS_TABLE}
+
+Generate close orders for ALL remaining positions. Use MARKET orders.

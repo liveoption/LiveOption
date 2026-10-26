@@ -1,0 +1,498 @@
+# Earnings experiment cases — each entry runs as an independent experiment.
+# Output: ./output/{model}/earnings/{ticker}/{fiscal_period}/
+# 96 cases: 24 tickers × 4 quarterly earnings across Jan–Dec 2025
+# start/end: T-2 and T+2 business days around earnings_date
+
+cases:
+  # ── January 2025 ────────────────────────────────────────────────────────
+  - ticker: NFLX
+    fiscal_period: Q4_FY2024
+    earnings_date: '2025-01-21'
+    start: '2025-01-17'
+    end: '2025-01-23'
+  - ticker: SOFI
+    fiscal_period: Q4_FY2024
+    earnings_date: '2025-01-27'
+    start: '2025-01-23'
+    end: '2025-01-29'
+  - ticker: MSFT
+    fiscal_period: Q2_FY2025
+    earnings_date: '2025-01-29'
+    start: '2025-01-27'
+    end: '2025-01-31'
+  - ticker: META
+    fiscal_period: Q4_FY2024
+    earnings_date: '2025-01-29'
+    start: '2025-01-27'
+    end: '2025-01-31'
+  - ticker: TSLA
+    fiscal_period: Q4_FY2024
+    earnings_date: '2025-01-29'
+    start: '2025-01-27'
+    end: '2025-01-31'
+  - ticker: AAPL
+    fiscal_period: Q1_FY2025
+    earnings_date: '2025-01-30'
+    start: '2025-01-28'
+    end: '2025-02-03'
+  - ticker: INTC
+    fiscal_period: Q4_FY2024
+    earnings_date: '2025-01-30'
+    start: '2025-01-28'
+    end: '2025-02-03'
+  # ── February 2025 ───────────────────────────────────────────────────────
+  - ticker: PLTR
+    fiscal_period: Q4_FY2024
+    earnings_date: '2025-02-03'
+    start: '2025-01-30'
+    end: '2025-02-05'
+  - ticker: AMD
+    fiscal_period: Q4_FY2024
+    earnings_date: '2025-02-04'
+    start: '2025-01-31'
+    end: '2025-02-06'
+  - ticker: PYPL
+    fiscal_period: Q4_FY2024
+    earnings_date: '2025-02-04'
+    start: '2025-01-31'
+    end: '2025-02-06'
+  - ticker: DIS
+    fiscal_period: Q1_FY2025
+    earnings_date: '2025-02-05'
+    start: '2025-02-03'
+    end: '2025-02-07'
+  - ticker: AMZN
+    fiscal_period: Q4_FY2024
+    earnings_date: '2025-02-06'
+    start: '2025-02-04'
+    end: '2025-02-10'
+  - ticker: SHOP
+    fiscal_period: Q4_FY2024
+    earnings_date: '2025-02-11'
+    start: '2025-02-07'
+    end: '2025-02-13'
+  - ticker: SMCI
+    fiscal_period: Q2_FY2025
+    earnings_date: '2025-02-11'
+    start: '2025-02-07'
+    end: '2025-02-13'
+  - ticker: HOOD
+    fiscal_period: Q4_FY2024
+    earnings_date: '2025-02-12'
+    start: '2025-02-10'
+    end: '2025-02-14'
+  - ticker: COIN
+    fiscal_period: Q4_FY2024
+    earnings_date: '2025-02-13'
+    start: '2025-02-11'
+    end: '2025-02-18'
+  - ticker: RKLB
+    fiscal_period: Q4_FY2024
+    earnings_date: '2025-02-24'
+    start: '2025-02-20'
+    end: '2025-02-26'
+  - ticker: CRM
+    fiscal_period: Q4_FY2025
+    earnings_date: '2025-02-26'
+    start: '2025-02-24'
+    end: '2025-02-28'
+  - ticker: SNOW
+    fiscal_period: Q4_FY2025
+    earnings_date: '2025-02-26'
+    start: '2025-02-24'
+    end: '2025-02-28'
+  - ticker: NVDA
+    fiscal_period: Q4_FY2025
+    earnings_date: '2025-02-26'
+    start: '2025-02-24'
+    end: '2025-02-28'
+  # ── March 2025 ──────────────────────────────────────────────────────────
+  - ticker: AVGO
+    fiscal_period: Q1_FY2025
+    earnings_date: '2025-03-06'
+    start: '2025-03-04'
+    end: '2025-03-10'
+  - ticker: CELH
+    fiscal_period: Q4_FY2024
+    earnings_date: '2025-03-10'
+    start: '2025-03-06'
+    end: '2025-03-12'
+  - ticker: MU
+    fiscal_period: Q2_FY2025
+    earnings_date: '2025-03-19'
+    start: '2025-03-17'
+    end: '2025-03-21'
+  - ticker: NKE
+    fiscal_period: Q3_FY2025
+    earnings_date: '2025-03-20'
+    start: '2025-03-18'
+    end: '2025-03-24'
+  # ── April 2025 ──────────────────────────────────────────────────────────
+  - ticker: NFLX
+    fiscal_period: Q1_FY2025
+    earnings_date: '2025-04-15'
+    start: '2025-04-11'
+    end: '2025-04-17'
+  - ticker: TSLA
+    fiscal_period: Q1_FY2025
+    earnings_date: '2025-04-22'
+    start: '2025-04-18'
+    end: '2025-04-24'
+  - ticker: INTC
+    fiscal_period: Q1_FY2025
+    earnings_date: '2025-04-24'
+    start: '2025-04-22'
+    end: '2025-04-28'
+  - ticker: SOFI
+    fiscal_period: Q1_FY2025
+    earnings_date: '2025-04-29'
+    start: '2025-04-25'
+    end: '2025-05-01'
+  - ticker: AMD
+    fiscal_period: Q1_FY2025
+    earnings_date: '2025-04-29'
+    start: '2025-04-25'
+    end: '2025-05-01'
+  - ticker: PYPL
+    fiscal_period: Q1_FY2025
+    earnings_date: '2025-04-29'
+    start: '2025-04-25'
+    end: '2025-05-01'
+  - ticker: HOOD
+    fiscal_period: Q1_FY2025
+    earnings_date: '2025-04-30'
+    start: '2025-04-28'
+    end: '2025-05-02'
+  - ticker: META
+    fiscal_period: Q1_FY2025
+    earnings_date: '2025-04-30'
+    start: '2025-04-28'
+    end: '2025-05-02'
+  - ticker: MSFT
+    fiscal_period: Q3_FY2025
+    earnings_date: '2025-04-30'
+    start: '2025-04-28'
+    end: '2025-05-02'
+  # ── May 2025 ────────────────────────────────────────────────────────────
+  - ticker: AAPL
+    fiscal_period: Q2_FY2025
+    earnings_date: '2025-05-01'
+    start: '2025-04-29'
+    end: '2025-05-05'
+  - ticker: AMZN
+    fiscal_period: Q1_FY2025
+    earnings_date: '2025-05-01'
+    start: '2025-04-29'
+    end: '2025-05-05'
+  - ticker: PLTR
+    fiscal_period: Q1_FY2025
+    earnings_date: '2025-05-05'
+    start: '2025-05-01'
+    end: '2025-05-07'
+  - ticker: SMCI
+    fiscal_period: Q3_FY2025
+    earnings_date: '2025-05-06'
+    start: '2025-05-02'
+    end: '2025-05-08'
+  - ticker: CELH
+    fiscal_period: Q1_FY2025
+    earnings_date: '2025-05-07'
+    start: '2025-05-05'
+    end: '2025-05-09'
+  - ticker: DIS
+    fiscal_period: Q2_FY2025
+    earnings_date: '2025-05-07'
+    start: '2025-05-05'
+    end: '2025-05-09'
+  - ticker: SHOP
+    fiscal_period: Q1_FY2025
+    earnings_date: '2025-05-07'
+    start: '2025-05-05'
+    end: '2025-05-09'
+  - ticker: COIN
+    fiscal_period: Q1_FY2025
+    earnings_date: '2025-05-08'
+    start: '2025-05-06'
+    end: '2025-05-12'
+  - ticker: RKLB
+    fiscal_period: Q1_FY2025
+    earnings_date: '2025-05-12'
+    start: '2025-05-08'
+    end: '2025-05-14'
+  - ticker: SNOW
+    fiscal_period: Q1_FY2026
+    earnings_date: '2025-05-21'
+    start: '2025-05-19'
+    end: '2025-05-23'
+  - ticker: CRM
+    fiscal_period: Q1_FY2026
+    earnings_date: '2025-05-28'
+    start: '2025-05-27'
+    end: '2025-05-30'
+  - ticker: NVDA
+    fiscal_period: Q1_FY2026
+    earnings_date: '2025-05-28'
+    start: '2025-05-27'
+    end: '2025-05-30'
+  # ── June 2025 ───────────────────────────────────────────────────────────
+  - ticker: AVGO
+    fiscal_period: Q2_FY2025
+    earnings_date: '2025-06-05'
+    start: '2025-06-03'
+    end: '2025-06-09'
+  - ticker: MU
+    fiscal_period: Q3_FY2025
+    earnings_date: '2025-06-25'
+    start: '2025-06-23'
+    end: '2025-06-27'
+  - ticker: NKE
+    fiscal_period: Q4_FY2025
+    earnings_date: '2025-06-26'
+    start: '2025-06-24'
+    end: '2025-06-30'
+  # ── July 2025 ───────────────────────────────────────────────────────────
+  - ticker: NFLX
+    fiscal_period: Q2_FY2025
+    earnings_date: '2025-07-15'
+    start: '2025-07-11'
+    end: '2025-07-17'
+  - ticker: TSLA
+    fiscal_period: Q2_FY2025
+    earnings_date: '2025-07-23'
+    start: '2025-07-21'
+    end: '2025-07-25'
+  - ticker: INTC
+    fiscal_period: Q2_FY2025
+    earnings_date: '2025-07-24'
+    start: '2025-07-22'
+    end: '2025-07-28'
+  - ticker: SOFI
+    fiscal_period: Q2_FY2025
+    earnings_date: '2025-07-28'
+    start: '2025-07-24'
+    end: '2025-07-30'
+  - ticker: PYPL
+    fiscal_period: Q2_FY2025
+    earnings_date: '2025-07-29'
+    start: '2025-07-25'
+    end: '2025-07-31'
+  - ticker: COIN
+    fiscal_period: Q2_FY2025
+    earnings_date: '2025-07-30'
+    start: '2025-07-28'
+    end: '2025-08-01'
+  - ticker: HOOD
+    fiscal_period: Q2_FY2025
+    earnings_date: '2025-07-30'
+    start: '2025-07-28'
+    end: '2025-08-01'
+  - ticker: META
+    fiscal_period: Q2_FY2025
+    earnings_date: '2025-07-30'
+    start: '2025-07-28'
+    end: '2025-08-01'
+  - ticker: MSFT
+    fiscal_period: Q4_FY2025
+    earnings_date: '2025-07-30'
+    start: '2025-07-28'
+    end: '2025-08-01'
+  - ticker: AAPL
+    fiscal_period: Q3_FY2025
+    earnings_date: '2025-07-31'
+    start: '2025-07-29'
+    end: '2025-08-04'
+  - ticker: AMZN
+    fiscal_period: Q2_FY2025
+    earnings_date: '2025-07-31'
+    start: '2025-07-29'
+    end: '2025-08-04'
+  # ── August 2025 ─────────────────────────────────────────────────────────
+  - ticker: PLTR
+    fiscal_period: Q2_FY2025
+    earnings_date: '2025-08-04'
+    start: '2025-07-31'
+    end: '2025-08-06'
+  - ticker: AMD
+    fiscal_period: Q2_FY2025
+    earnings_date: '2025-08-05'
+    start: '2025-08-01'
+    end: '2025-08-07'
+  - ticker: SMCI
+    fiscal_period: Q4_FY2025
+    earnings_date: '2025-08-05'
+    start: '2025-08-01'
+    end: '2025-08-07'
+  - ticker: DIS
+    fiscal_period: Q3_FY2025
+    earnings_date: '2025-08-06'
+    start: '2025-08-04'
+    end: '2025-08-08'
+  - ticker: SHOP
+    fiscal_period: Q2_FY2025
+    earnings_date: '2025-08-06'
+    start: '2025-08-04'
+    end: '2025-08-08'
+  - ticker: CELH
+    fiscal_period: Q2_FY2025
+    earnings_date: '2025-08-07'
+    start: '2025-08-05'
+    end: '2025-08-11'
+  - ticker: RKLB
+    fiscal_period: Q2_FY2025
+    earnings_date: '2025-08-07'
+    start: '2025-08-05'
+    end: '2025-08-11'
+  - ticker: NVDA
+    fiscal_period: Q2_FY2026
+    earnings_date: '2025-08-27'
+    start: '2025-08-25'
+    end: '2025-08-29'
+  - ticker: SNOW
+    fiscal_period: Q2_FY2026
+    earnings_date: '2025-08-27'
+    start: '2025-08-25'
+    end: '2025-08-29'
+  # ── September 2025 ──────────────────────────────────────────────────────
+  - ticker: CRM
+    fiscal_period: Q2_FY2026
+    earnings_date: '2025-09-03'
+    start: '2025-09-01'
+    end: '2025-09-05'
+  - ticker: AVGO
+    fiscal_period: Q3_FY2025
+    earnings_date: '2025-09-04'
+    start: '2025-09-02'
+    end: '2025-09-08'
+  - ticker: MU
+    fiscal_period: Q4_FY2025
+    earnings_date: '2025-09-23'
+    start: '2025-09-19'
+    end: '2025-09-25'
+  - ticker: NKE
+    fiscal_period: Q1_FY2026
+    earnings_date: '2025-09-30'
+    start: '2025-09-26'
+    end: '2025-10-02'
+  # ── October 2025 ────────────────────────────────────────────────────────
+  - ticker: NFLX
+    fiscal_period: Q3_FY2025
+    earnings_date: '2025-10-21'
+    start: '2025-10-17'
+    end: '2025-10-23'
+  - ticker: TSLA
+    fiscal_period: Q3_FY2025
+    earnings_date: '2025-10-22'
+    start: '2025-10-20'
+    end: '2025-10-24'
+  - ticker: INTC
+    fiscal_period: Q3_FY2025
+    earnings_date: '2025-10-23'
+    start: '2025-10-21'
+    end: '2025-10-27'
+  - ticker: PYPL
+    fiscal_period: Q3_FY2025
+    earnings_date: '2025-10-28'
+    start: '2025-10-24'
+    end: '2025-10-30'
+  - ticker: SOFI
+    fiscal_period: Q3_FY2025
+    earnings_date: '2025-10-28'
+    start: '2025-10-24'
+    end: '2025-10-30'
+  - ticker: META
+    fiscal_period: Q3_FY2025
+    earnings_date: '2025-10-29'
+    start: '2025-10-27'
+    end: '2025-10-31'
+  - ticker: MSFT
+    fiscal_period: Q1_FY2026
+    earnings_date: '2025-10-29'
+    start: '2025-10-27'
+    end: '2025-10-31'
+  - ticker: AAPL
+    fiscal_period: Q4_FY2025
+    earnings_date: '2025-10-30'
+    start: '2025-10-28'
+    end: '2025-11-03'
+  - ticker: AMZN
+    fiscal_period: Q3_FY2025
+    earnings_date: '2025-10-30'
+    start: '2025-10-28'
+    end: '2025-11-03'
+  - ticker: COIN
+    fiscal_period: Q3_FY2025
+    earnings_date: '2025-10-30'
+    start: '2025-10-28'
+    end: '2025-11-03'
+  # ── November 2025 ───────────────────────────────────────────────────────
+  - ticker: PLTR
+    fiscal_period: Q3_FY2025
+    earnings_date: '2025-11-03'
+    start: '2025-10-30'
+    end: '2025-11-05'
+  - ticker: AMD
+    fiscal_period: Q3_FY2025
+    earnings_date: '2025-11-04'
+    start: '2025-10-31'
+    end: '2025-11-06'
+  - ticker: SHOP
+    fiscal_period: Q3_FY2025
+    earnings_date: '2025-11-04'
+    start: '2025-10-31'
+    end: '2025-11-06'
+  - ticker: SMCI
+    fiscal_period: Q1_FY2026
+    earnings_date: '2025-11-04'
+    start: '2025-10-31'
+    end: '2025-11-06'
+  - ticker: HOOD
+    fiscal_period: Q3_FY2025
+    earnings_date: '2025-11-05'
+    start: '2025-11-03'
+    end: '2025-11-07'
+  - ticker: CELH
+    fiscal_period: Q3_FY2025
+    earnings_date: '2025-11-06'
+    start: '2025-11-04'
+    end: '2025-11-10'
+  - ticker: RKLB
+    fiscal_period: Q3_FY2025
+    earnings_date: '2025-11-10'
+    start: '2025-11-06'
+    end: '2025-11-12'
+  - ticker: DIS
+    fiscal_period: Q4_FY2025
+    earnings_date: '2025-11-13'
+    start: '2025-11-11'
+    end: '2025-11-17'
+  - ticker: NVDA
+    fiscal_period: Q3_FY2026
+    earnings_date: '2025-11-19'
+    start: '2025-11-17'
+    end: '2025-11-21'
+  # ── December 2025 ───────────────────────────────────────────────────────
+  - ticker: CRM
+    fiscal_period: Q3_FY2026
+    earnings_date: '2025-12-03'
+    start: '2025-12-01'
+    end: '2025-12-05'
+  - ticker: SNOW
+    fiscal_period: Q3_FY2026
+    earnings_date: '2025-12-03'
+    start: '2025-12-01'
+    end: '2025-12-05'
+  - ticker: AVGO
+    fiscal_period: Q4_FY2025
+    earnings_date: '2025-12-11'
+    start: '2025-12-09'
+    end: '2025-12-15'
+  - ticker: MU
+    fiscal_period: Q1_FY2026
+    earnings_date: '2025-12-17'
+    start: '2025-12-15'
+    end: '2025-12-19'
+  - ticker: NKE
+    fiscal_period: Q2_FY2026
+    earnings_date: '2025-12-18'
+    start: '2025-12-16'
+    end: '2025-12-22'

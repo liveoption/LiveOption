@@ -1,0 +1,123 @@
+# chain_context.yaml — option chain context settings for all scenarios
+#
+# Analyzer chain (QOCR / AVSR) keys:
+#   qocr_price_range:       ±fraction of spot to include (e.g. 0.10 = ±10%)  [symmetric]
+#   qocr_otm_range:         asymmetric OTM fraction — calls up to spot*(1+r), puts down to spot*(1-r)
+#   qocr_itm_range:         asymmetric ITM fraction — calls down to spot*(1-r), puts up to spot*(1+r)
+#                           When otm/itm_range > 0 they override qocr_price_range.
+#   qocr_flat_format:       true = flat sorted list (no ITM/ATM/OTM grouping), for 0DTE
+#   qocr_atm_lo/hi:         ATM window boundaries (K/S ratio)
+#   qocr_expiry_buckets:    DTE ranges for QOCR expiry grouping
+#   qocr_expiry_labels:     labels for each expiry bucket
+#   qocr_max_per_bucket:    max contracts per DTE×moneyness cell (0 = all)
+#   qocr_show_top_tradable: whether to include top-tradable shortlist from ChainCompressor
+#   qocr_top_tradable_n:    how many contracts in the top-tradable list per side (default 5)
+#
+# Executor chain keys:
+#   executor_price_range:   ±fraction of spot for executor chain filter  [symmetric]
+#   executor_otm_range:     asymmetric OTM fraction for executor (overrides price_range when >0)
+#   executor_itm_range:     asymmetric ITM fraction for executor (overrides price_range when >0)
+#   executor_dense_range:   ±fraction for dense zone (show all); contracts outside this but
+#                           within executor_price_range are shown every (sparse_gap+1)th
+#   executor_sparse_gap:    0 = every contract in sparse zone, 1 = every 2nd, etc.
+#   executor_max_per_dte:   max calls and max puts per DTE bucket; 0 = no cap.
+#                           When capped, keeps contracts nearest to spot (ATM-centric).
+
+scenarios:
+  intraday_0dte:
+    # --- Analyzer (QOCR) ---
+    qocr_price_range: 0.05            # symmetric fallback (used if otm/itm_range = 0)
+    qocr_otm_range: 0.05              # calls: up to +5% OTM; puts: down to -5% OTM
+    qocr_itm_range: 0.02              # calls: down to -2% ITM; puts: up to +2% ITM
+    qocr_flat_format: true            # flat sorted list, no ITM/ATM/OTM grouping
+    qocr_atm_lo: 0.99
+    qocr_atm_hi: 1.01
+    qocr_expiry_buckets:
+      - [0, 1]
+    qocr_expiry_labels:
+      - "0dte"
+    qocr_max_per_bucket: 0            # show all contracts within range
+    qocr_show_top_tradable: false
+    qocr_top_tradable_n: 10            # N/A (top_tradable disabled), kept for consistency
+    # --- Executor ---
+    executor_price_range: 0.05        # symmetric fallback
+    executor_otm_range: 0.05          # calls: up to +5%; puts: down to -5%
+    executor_itm_range: 0.02          # calls: down to -2%; puts: up to +2%
+    executor_dense_range: 0.03        # ±3%: show every contract (dense zone)
+    executor_sparse_gap: 1            # 3-5%: show every 2nd contract (gap=1 means skip 1)
+    executor_max_per_dte: 0           # no cap — 0DTE has few contracts anyway
+    executor_vol_filter: true         # split into tradable(vol>0) + reference chain sections
+
+  overlay:
+    # --- Analyzer (QOCR) ---
+    qocr_price_range: 0.15            # ±15% filter for QOCR
+    qocr_flat_format: false
+    qocr_atm_lo: 0.99
+    qocr_atm_hi: 1.01
+    qocr_expiry_buckets:
+      - [0, 14]                       # short: weekly options
+      - [15, 30]                      # medium: monthly options (up to 1-month expiry)
+    qocr_expiry_labels:
+      - "short"
+      - "medium"
+    qocr_max_per_bucket: 0            # show all per cell
+    qocr_show_top_tradable: true
+    qocr_top_tradable_n: 20            # top 10 calls + 10 puts by volume
+    # --- Executor ---
+    executor_price_range: 0.15        # ±15% around spot for overlay execution
+    executor_dense_range: 0.0         # no zone distinction — show all within range
+    executor_sparse_gap: 0
+    executor_max_per_dte: 25          # max 25 calls + 25 puts per DTE bucket (ATM-centric)
+
+  earnings:
+    # Pre-earnings phase: wide coverage, QOCR grouped format
+    # --- Analyzer (QOCR) ---
+    qocr_price_range: 0.3            # symmetric fallback
+    qocr_otm_range: 0.15              # calls: up to +20% OTM; puts: down to -20% OTM
+    qocr_itm_range: 0.05              # calls: down to -10% ITM; puts: up to +10% ITM
+    qocr_flat_format: false
+    qocr_atm_lo: 0.99
+    qocr_atm_hi: 1.01
+    qocr_expiry_buckets:
+      - [0, 7]                        # this week
+      - [8, 14]                       # next week
+    qocr_expiry_labels:
+      - "this_week"
+      - "next_week"
+    qocr_max_per_bucket: 100           # cap per cell to avoid overwhelming the LLM
+    qocr_show_top_tradable: true
+    qocr_top_tradable_n: 50           # top 20 per side for broader coverage
+    # --- Executor ---
+    executor_price_range: 0.30
+    executor_otm_range: 0.15
+    executor_itm_range: 0.05
+    executor_dense_range: 0.0
+    executor_sparse_gap: 0
+    executor_max_per_dte: 0
+    executor_vol_filter: false
+
+  earnings_post:
+    # Post-earnings phase: intraday-like — flat chain, vol filter, tight range
+    # The stock has already gapped; options are short DTE, intraday management.
+    # --- Analyzer (QOCR) ---
+    executor_price_range: 0.30
+    executor_otm_range: 0.15
+    executor_itm_range: 0.1
+    qocr_flat_format: true            # flat sorted list, no ITM/ATM/OTM grouping
+    qocr_atm_lo: 0.99
+    qocr_atm_hi: 1.01
+    qocr_expiry_buckets:
+      - [0, 14]                       # all remaining DTE (0-14 days)
+    qocr_expiry_labels:
+      - "active"
+    qocr_max_per_bucket: 0
+    qocr_show_top_tradable: false
+    qocr_top_tradable_n: 5
+    # --- Executor ---
+    executor_price_range: 0.10
+    executor_otm_range: 0.10
+    executor_itm_range: 0.1
+    executor_dense_range: 0.1        # ±5%: show all (post-earnings ATM area)
+    executor_sparse_gap: 1            # outside ±5%: every 2nd contract
+    executor_max_per_dte: 0
+    executor_vol_filter: true         # tradable (vol>0) + reference chain sections

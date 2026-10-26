@@ -1,0 +1,51 @@
+# Overlay experiment cases — each entry runs as an independent experiment.
+# Output: ./output/{model}/overlay/{ticker}/{mode}/
+
+# Risk settings applied to every case in this file.
+# circuit_breaker_loss_pct: daily loss threshold that blocks all trading for the day.
+# max_daily_loss_pct: hard stop — no trades if daily loss exceeds this fraction.
+risk_overrides:
+  circuit_breaker_loss_pct: 0      # disabled — overlay holds large stock position, daily % swings are normal
+  max_daily_loss_pct: 0            # disabled — stock-only moves would trigger this without any option activity
+
+cases:
+  # - ticker: QQQ
+  #   mode: hedge
+  #   start: "2025-01-01"
+  #   end: "2025-12-30"
+  # - ticker: QQQ
+  #   mode: profit
+  #   start: "2025-01-01"
+  #   end: "2025-12-30"
+  # - ticker: NVDA
+  #   mode: hedge
+  #   start: "2025-01-01"
+  #   end: "2025-12-30"
+  # - ticker: NVDA
+  #   mode: profit
+  #   start: "2025-01-01"
+  #   end: "2025-12-30"
+  # - ticker: AMD
+  #   mode: hedge
+  #   start: "2025-01-01"
+  #   end: "2025-12-30"
+  # - ticker: AMD
+  #   mode: profit
+  #   start: "2025-01-01"
+  #   end: "2025-12-30"
+  # - ticker: TSLA
+  #   mode: hedge
+  #   start: "2025-01-01"
+  #   end: "2025-12-30"
+  # - ticker: TSLA
+  #   mode: profit
+  #   start: "2025-01-01"
+  #   end: "2025-12-30"
+  # - ticker: GOOG
+  #   mode: hedge
+  #   start: "2025-01-01"
+  #   end: "2025-12-30"
+  - ticker: GOOG
+    mode: profit
+    start: "2025-01-01"
+    end: "2025-12-30"

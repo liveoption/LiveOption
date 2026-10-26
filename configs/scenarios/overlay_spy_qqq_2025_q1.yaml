@@ -1,0 +1,57 @@
+# Overlay QQQ+NVDA (rule-based overlay_profit, LLM model selectable at launch).
+# Paper §E.1: QQQ + NVDA, 10k shares each, 20% cash buffer, 7-45 DTE, weekly rebalance.
+# Web-launcher-managed scenario. Adding a new scenario: commit the YAML
+# here AND add an entry in liveoption_web/runs/catalog.py (same PR).
+experiment:
+  run_id: overlay_spy_qqq_2025_q1
+  seed: 42
+  mode: replay
+  start: "2025-01-02"
+  end: "2025-03-31"
+  universe: ["QQQ", "NVDA"]
+  frequency: "1d"
+  timezone: America/New_York
+  # initial_cash: 20% cash buffer over initial stock notional enforced by
+  # risk module (cash_buffer_pct: 0.20); leave this value for bankroll sizing.
+  initial_cash: 6_294_480.0
+  initial_positions:
+    - symbol: QQQ
+      qty: 10000
+    - symbol: NVDA
+      qty: 10000
+
+strategy:
+  name: overlay_profit
+  params:
+    stock_qty: 10000
+    cash_buffer_pct: 0.20
+    dte_min: 7
+    dte_max: 45
+    otm_pct: 0.05
+    rebalance_weekday: 0
+    llm_provider: deepseek
+    llm_model: deepseek-chat
+
+risk:
+  flatten_before_close: false
+  max_daily_loss_pct: 0
+  circuit_breaker_loss_pct: 0
+  max_exposure_pct: 99999.0
+  max_position_per_symbol: 20000
+  allow_naked_short_options: true
+
+# execution.pmb_base_url / upq_base_url intentionally unset: they resolve via
+# trading/core/endpoints.py (QFinZero hub by default; override with QFZ_HUB_URL,
+# QFZ_PMB_URL, QFZ_UPQ_URL — e.g. on hosts that run standalone services).
+
+data_policy:
+  news_enabled: true
+  news_lookback_days: 7
+  max_stale_minutes: 5
+  chain_filter_dte_min: 7
+  chain_filter_dte_max: 45
+  chain_filter_delta_min: 0.10
+  chain_filter_delta_max: 0.70
+
+evaluation:
+  output_dir: "./output/web/overlay_spy_qqq_2025_q1"

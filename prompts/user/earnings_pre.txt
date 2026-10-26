@@ -1,0 +1,27 @@
+=== PRE-EARNINGS BET — {PHASE_LABEL} ===
+Date: {DATE} | {TICKER} earnings: {EARNINGS_DATE} ({TIMING})
+Trading days to earnings: {DAYS_TO_EARNINGS}
+Trading window: T-2={T_MINUS_2}, T-1={T_MINUS_1} (pre) -> T+1={T_PLUS_1}, T+2={T_PLUS_2} (post reaction)
+
+== Account State ==
+Cash: ${CASH} | Equity: ${EQUITY}
+
+== Current Positions ==
+{POSITIONS_TABLE}
+
+== Recent Price Action (1 month, up to yesterday's close) ==
+{PRICE_CONTEXT}
+
+== Historical Earnings (last {N_HISTORICAL} quarters) ==
+{HISTORICAL_REACTIONS}
+
+== Consensus Estimates ==
+EPS est: {ESTIMATED_EPS} | Revenue est: {ESTIMATED_REVENUE}
+
+== Pre-earnings News ({NEWS_WINDOW}) ==
+{NEWS_SECTION}
+
+== IV Surface + Option Chain (7-14 DTE, +/-20% strike range) ==
+{CHAIN_CONTEXT}
+
+Analyze the earnings context above. Provide your prediction and strategy intent as a JSON object.

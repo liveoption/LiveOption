@@ -1,0 +1,11 @@
+Current state:
+- Date: {DATE}
+- {UNDERLYING} price: ${PRICE}
+- Cash available: ${CASH}
+- Portfolio equity: ${EQUITY}
+- Active option positions: {ACTIVE_OPTIONS}
+
+Available option contracts:
+{CHAIN_STR}
+
+What action should I take? Respond with JSON.

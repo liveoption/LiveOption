@@ -1,0 +1,16 @@
+title = "LiveOption secret scanning"
+
+[extend]
+useDefault = true
+
+[[allowlists]]
+description = "Deliberately fake credential used to test log redaction"
+condition = "AND"
+paths = ['''^liveoption_web/tests/test_reports_and_logs\.py$''']
+regexes = ['''^sk-1234567890abcdef$''']
+
+[[allowlists]]
+description = "Repeated hexadecimal fixture used to test Web token authentication"
+condition = "AND"
+paths = ['''^frontend/tests/unit/server-token-auth\.test\.ts$''']
+regexes = ['''^(0123456789abcdef){4}$''']

@@ -1,0 +1,15 @@
+Time: {CURRENT_TIME} ET | Minutes to close: {MINUTES_TO_CLOSE}
+
+== Account State ==
+Cash: ${CASH}  Equity: ${EQUITY}  Daily P&L: ${DAILY_PNL} ({DAILY_PNL_PCT}%)
+
+== Current Positions ==
+{POSITIONS_TABLE}
+
+== Recent Price Action ({INTERVAL}min windows) ==
+{PRICE_WINDOWS_TABLE}
+
+== Available Options (filtered: DTE {DTE_MIN}-{DTE_MAX}, delta 0.20-0.60) ==
+{CHAIN_STR}
+
+Based on the above, provide your trading decisions as a JSON array.

@@ -1,0 +1,19 @@
+Date: {CURRENT_DATE} | Time: {CURRENT_TIME} ET | Minutes to close: {MINUTES_TO_CLOSE}
+
+== Account State ==
+{PORTFOLIO_SUMMARY}
+
+== Daily Price Summary (MAs, trend, gap, last 10 days OHLC) ==
+{DAILY_PRICE_CONTEXT}
+
+== Intraday Multi-Timeframe Price Action ==
+{MULTI_TIMEFRAME_CONTEXT}
+
+== Option Chain (0DTE, IV Surface) ==
+{CHAIN_CONTEXT}
+
+== News & Events (up to current time — no future data) ==
+{NEWS_CONTEXT}
+
+Analyze the daily trend, intraday price action, IV surface, and news/events above.
+Provide your trading intention as a JSON object.

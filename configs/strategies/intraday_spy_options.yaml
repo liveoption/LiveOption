@@ -1,0 +1,28 @@
+experiment:
+  run_id: intraday_spy_0dte
+  seed: 42
+  start: "2025-01-06"
+  end: "2025-01-10"
+  universe: [SPY, QQQ]
+  frequency: "1m"
+
+strategy:
+  name: intraday_llm
+  params:
+    decision_interval_minutes: 15
+    llm_provider: deepseek
+    llm_model: deepseek-chat
+    dte_min: 0
+    dte_max: 7
+    max_positions: 5
+
+risk:
+  flatten_before_close: true
+  flatten_minutes_before_close: 5
+
+data_policy:
+  max_stale_minutes: 10
+  chain_filter_dte_min: 0
+  chain_filter_dte_max: 7
+  chain_filter_delta_min: 0.20
+  chain_filter_delta_max: 0.60

@@ -1,0 +1,42 @@
+name: Frontend Schema Sync
+
+on:
+  pull_request:
+    paths:
+      - "frontend/**"
+      - "liveoption_web/**"
+      - ".github/workflows/frontend-schema-check.yml"
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: frontend
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 11.25.0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+          cache-dependency-path: frontend/pnpm-lock.yaml
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Regenerate Orval types from openapi.json
+        run: pnpm exec orval
+
+      - name: Fail if generated types are out of sync
+        run: |
+          if ! git diff --quiet app/lib/orval/; then
+            echo "::error::Generated types out of sync with openapi.json."
+            echo "Run 'pnpm exec orval' in frontend/ and commit the result."
+            git diff app/lib/orval/ | head -200
+            exit 1
+          fi

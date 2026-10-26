@@ -1,0 +1,37 @@
+experiment:
+  run_id: overlay_hedge_qqq_2025
+  seed: 42
+  start: "2025-01-02"
+  end: "2025-12-31"
+  universe: [QQQ]
+  frequency: "1d"
+  initial_cash: 6_122_760.0
+  initial_positions:
+    - symbol: QQQ
+      qty: 10000
+
+strategy:
+  name: overlay_hedge
+  params:
+    stock_qty: 10000
+    cash_buffer_pct: 0.20
+    dte_min: 7
+    dte_max: 60
+    near_otm_pct: 0.03
+    far_otm_pct: 0.08
+    mode: spread
+    rebalance_weekday: 0
+
+risk:
+  flatten_before_close: false
+  max_daily_loss_pct: 1.0
+  max_exposure_pct: 99999.0
+  max_position_per_symbol: 20000
+  allow_naked_short_options: true
+
+data_policy:
+  max_stale_minutes: 999999
+  chain_filter_dte_min: 7
+  chain_filter_dte_max: 60
+  chain_filter_delta_min: 0.10
+  chain_filter_delta_max: 0.70

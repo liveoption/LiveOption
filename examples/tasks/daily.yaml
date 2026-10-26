@@ -1,0 +1,15 @@
+protocol_version: liveoption.run.v1
+mode: custom
+cadence: daily
+decision_time_et: '15:30'
+model_id: replace-with-a-configured-model-id
+title: My daily test
+context: Consider both calls and puts. State why no trade is preferable when appropriate.
+experiment:
+  start: '2025-01-06'
+  end: '2025-01-10'
+  initial_cash: 100000
+  universe: [SPY]
+execution:
+  option_fee_per_contract: 0.65
+  order_type_policy: limit

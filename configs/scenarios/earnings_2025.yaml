@@ -1,0 +1,94 @@
+# Earnings preset. Web-launcher-managed scenario.
+#
+# This file mirrors configs/strategies/earnings_bet.yaml parameter-for-
+# parameter. Any deltas MUST be on the same line as the diverging key
+# annotated `# web-override: <reason ≥10 chars>`. The lint test
+# liveoption_web/tests/test_scenario_yaml_preset_defaults.py enforces
+# this discipline.
+experiment:
+  run_id: earnings_2025                                 # web-override: web catalog id, not legacy earnings_bet_2025
+  seed: 42
+  start: "2025-01-01"
+  end: "2025-12-31"
+  initial_cash: 50000
+  universe:
+    # Mega-cap Tech
+    - AAPL
+    - MSFT
+    - TSLA
+    - AMZN
+    - META
+    - NVDA
+    # Semiconductor
+    - AMD
+    - INTC
+    - MU
+    - AVGO
+    # Consumer & Streaming
+    - NFLX
+    - DIS
+    - NKE
+    # Cloud / SaaS
+    - CRM
+    - SNOW
+    - PLTR
+    # Fintech & Crypto-adjacent
+    - HOOD
+    - COIN
+    - SOFI
+    - PYPL
+    # High Beta / Growth
+    - SHOP
+    - RKLB
+    - SMCI
+    - CELH
+  # 1m frequency: pre-T uses daily-close gate; post-T uses intraday interval gate
+  frequency: "1m"
+
+strategy:
+  name: earnings_bet
+  params:
+    ssh_host: local                                     # web-override: web supervisor runs PMB locally (not via SSH like legacy)
+    llm_provider: deepseek                              # web-override: legacy uses top-level `model:` key; web uses strategy.params instead
+    llm_model: deepseek-chat                            # web-override: legacy uses top-level `model:` key; web uses strategy.params instead
+    # Cap each trade at 40% of equity so a single bad bet can't blow up the account.
+    max_position_cost: 30000
+    max_contracts: 50
+    auto_close_at_t2: true
+    # Weekly/bi-weekly options only (7-14 DTE)
+    dte_min: 7
+    dte_max: 14
+    # Post-earnings intraday: LLM decision every 30 minutes
+    post_decision_interval_minutes: 30
+    # Portfolio snapshot interval (minutes) for logging
+    portfolio_snapshot_interval: 5
+
+risk:
+  flatten_before_close: false
+  # Betting account: allow up to 50% daily loss before circuit breaker.
+  # 3% default (=$300 on $10k) fires on normal intraday option moves.
+  max_daily_loss_pct: 0.50
+  circuit_breaker_loss_pct: 0.40
+  # 40% exposure cap per trade keeps budget available for T-1 adjustment
+  # and prevents over-concentration in a single bet.
+  max_exposure_pct: 0.40
+  max_orders_per_day: 50
+  # NO naked short options — spread legs must always be paired.
+  # The risk gate normalizes spread leg quantities post-evaluation.
+  allow_naked_short_options: false
+
+# execution.pmb_base_url / upq_base_url intentionally unset: they resolve via
+# trading/core/endpoints.py (QFinZero hub by default; override with QFZ_HUB_URL,
+# QFZ_PMB_URL, QFZ_UPQ_URL — e.g. on hosts that run standalone services).
+
+data_policy:
+  news_enabled: true                                   # web-override: expose point-in-time ESP news setting for web experiments
+  news_lookback_days: 7                                # web-override: display the existing event news window in web defaults
+  max_stale_minutes: 5                                  # web-override: tighter staleness window for interactive web runs vs legacy 10080
+  chain_filter_dte_min: 7
+  chain_filter_dte_max: 14
+  chain_filter_delta_min: 0.10
+  chain_filter_delta_max: 0.70
+
+evaluation:
+  output_dir: "./output/web/earnings_2025"              # web-override: web-namespaced output path

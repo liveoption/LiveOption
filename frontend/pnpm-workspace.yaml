@@ -1,0 +1,9 @@
+packages:
+  - '.'
+
+# Only the bundler requires a dependency install script for this application.
+# Explicit denials keep strict dependency-build checks enabled on pnpm 11.
+allowBuilds:
+  esbuild: true
+  '@clerk/shared': false
+  msw: false

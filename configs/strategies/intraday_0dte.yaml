@@ -1,0 +1,42 @@
+experiment:
+  run_id: intraday_0dte
+  seed: 42
+  start: "2025-04-04T09:30:00"
+  end: "2025-04-04T16:00:00"
+  universe: [SPY]
+  frequency: "1m"
+  initial_cash: 10000.0
+
+strategy:
+  name: intraday_0dte
+  params:
+    decision_interval_minutes: 5
+    max_positions: 100
+    flatten_before_close: true
+    flatten_minutes_before_close: 5
+    trade_equity_pct: 0.05
+    # Auto-stop: agent decides to quit early if session P&L is satisfactory
+    # and equity trend has peaked. Disabled by default.
+    enable_auto_stop: false
+    auto_stop_check_interval_minutes: 30
+
+# execution.pmb_base_url / upq_base_url intentionally unset: they resolve via
+# trading/core/endpoints.py (QFinZero hub by default; override with QFZ_HUB_URL,
+# QFZ_PMB_URL, QFZ_UPQ_URL — e.g. on hosts that run standalone services).
+
+risk:
+  flatten_before_close: true
+  flatten_minutes_before_close: 5
+  max_daily_loss_pct: 0.03
+  max_exposure_pct: 0.30
+  max_orders_per_day: 500
+  max_position_per_symbol: 20
+
+data_policy:
+  max_stale_minutes: 5
+  lookback_bars: 120
+  chain_filter_dte_min: 0
+  chain_filter_dte_max: 0
+  chain_filter_delta_min: 0.10
+  chain_filter_delta_max: 0.60
+  chain_max_contracts_per_ticker: 50

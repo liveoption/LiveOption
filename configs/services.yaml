@@ -1,0 +1,29 @@
+# Global service endpoints — QFinZero unified hub.
+#
+# QFinZero now runs as ONE server (default port 19777) that fronts every
+# backend service under /svc/<name>:
+#   /svc/upq  — market data (stocks, option chains + Greeks, rates)
+#   /svc/pmb  — Paper Money Broker (accounts/sessions/orders, /v1/*)
+#   /svc/esp  — events & news (formerly NPP; /esp/* paths)
+#
+# Health: curl http://127.0.0.1:19777/health
+# Restart: systemctl --user restart qfinzero-hub   (or qfinzero/scripts/restart.sh)
+#
+# Env overrides (see trading/core/endpoints.py): QFZ_HUB_URL, QFZ_UPQ_URL,
+# QFZ_PMB_URL, QFZ_ESP_URL. QFinZero is an external runtime dependency.
+
+services:
+  pmb:
+    host: "127.0.0.1"
+    port: 19777
+    base_url: "http://127.0.0.1:19777/svc/pmb"
+
+  upq:
+    host: "127.0.0.1"
+    port: 19777
+    base_url: "http://127.0.0.1:19777/svc/upq"
+
+  esp:
+    host: "127.0.0.1"
+    port: 19777
+    base_url: "http://127.0.0.1:19777/svc/esp"

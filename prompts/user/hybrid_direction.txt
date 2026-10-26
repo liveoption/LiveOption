@@ -1,0 +1,7 @@
+Current: SPY ${PRICE}, 15min change {CHANGE}%
+Available:
+{OPTIONS_BLOCK}
+
+Respond with ONE JSON object:
+{{"direction": "bullish"|"bearish"|"neutral", "contract": "<OPRA with O: prefix>", "qty": 1-5, "rationale": "..."}}
+Return {{"direction": "neutral"}} to skip.

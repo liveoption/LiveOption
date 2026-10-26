@@ -1,0 +1,126 @@
+#!/usr/bin/env bash
+#
+# pre-push hook: scan staged commits for leaked secrets before pushing.
+# Install: git config core.hooksPath .githooks
+#
+# Checks ALL commits about to be pushed (not just the latest) for:
+#   - API keys (sk-*, AIza*, ghp_*, gho_*, etc.)
+#   - AWS credentials
+#   - Private keys
+#   - .env files
+#   - Common secret patterns
+#
+# Exit 1 = block push, Exit 0 = allow push.
+
+set -e
+
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[0;33m'
+NC='\033[0m'
+
+# Patterns to detect (regex, one per line)
+PATTERNS=(
+    # OpenAI / DeepSeek style keys
+    'sk-[a-zA-Z0-9]{20,}'
+    # Google API keys
+    'AIza[a-zA-Z0-9_-]{35}'
+    # AWS access key
+    'AKIA[A-Z0-9]{16}'
+    # AWS secret key (generic long base64-ish)
+    'aws_secret_access_key\s*=\s*[A-Za-z0-9/+=]{40}'
+    # GitHub tokens
+    'gh[ps]_[a-zA-Z0-9]{36}'
+    # Generic "password" or "secret" assignments
+    'password\s*=\s*["\x27][^"\x27]{8,}'
+    'secret\s*=\s*["\x27][^"\x27]{8,}'
+    # Private keys
+    '-----BEGIN (RSA |EC |DSA |OPENSSH |ENCRYPTED )?PRIVATE KEY-----'
+)
+
+# File-path pattern for dotenv files that should never be pushed.
+# Examples:
+#   .env
+#   .env.local
+#   config/.env.production
+ENV_FILE_REGEX='(^|/)\.env([.][A-Za-z0-9._-]+)?$'
+
+# Build combined grep pattern
+COMBINED=""
+for p in "${PATTERNS[@]}"; do
+    if [ -z "$COMBINED" ]; then
+        COMBINED="$p"
+    else
+        COMBINED="$COMBINED|$p"
+    fi
+done
+
+# Read push info from stdin (provided by git)
+while read local_ref local_sha remote_ref remote_sha; do
+    # If remote_sha is all zeros, it's a new branch — check all commits
+    if [ "$remote_sha" = "0000000000000000000000000000000000000000" ]; then
+        RANGE="$local_sha"
+    else
+        RANGE="$remote_sha..$local_sha"
+    fi
+
+    # Inspect every commit, including the root commit on a new branch.
+    FOUND=0
+    for commit_sha in $(git rev-list "$RANGE"); do
+        FILES=$(git diff-tree --root --no-commit-id --name-only -r "$commit_sha")
+        while IFS= read -r file; do
+        [ -n "$file" ] || continue
+        # Block committed dotenv files by path, not by file content.
+        if [[ "$file" != ".env.example" && "$file" != */.env.example ]] \
+            && printf '%s\n' "$file" | grep -Eq "$ENV_FILE_REGEX"; then
+            if [ "$FOUND" -eq 0 ]; then
+                echo -e "${RED}========================================${NC}"
+                echo -e "${RED}  SECRET LEAK DETECTED — PUSH BLOCKED  ${NC}"
+                echo -e "${RED}========================================${NC}"
+                echo ""
+            fi
+            FOUND=1
+            echo -e "${YELLOW}File: $file${NC}"
+            echo -e "  ${RED}→ dotenv file paths must not be committed${NC}"
+            echo ""
+            continue
+        fi
+
+        # Skip binary files and deleted files
+        git show "$commit_sha:$file" > /dev/null 2>&1 || continue
+
+        # Scan file content
+        MATCHES=$(git show "$commit_sha:$file" 2>/dev/null | grep -nE "$COMBINED" 2>/dev/null || true)
+
+        if [ -n "$MATCHES" ]; then
+            if [ "$FOUND" -eq 0 ]; then
+                echo -e "${RED}========================================${NC}"
+                echo -e "${RED}  SECRET LEAK DETECTED — PUSH BLOCKED  ${NC}"
+                echo -e "${RED}========================================${NC}"
+                echo ""
+            fi
+            FOUND=1
+            echo -e "${YELLOW}File: $file${NC}"
+            echo "$MATCHES" | while IFS=: read -r line_number _; do
+                echo -e "  ${RED}→ line $line_number: potential secret [REDACTED]${NC}"
+            done
+            echo ""
+        fi
+        done <<< "$FILES"
+    done
+
+    if [ "$FOUND" -ne 0 ]; then
+        echo -e "${RED}Push blocked to prevent secret leakage.${NC}"
+        echo ""
+        echo "To fix:"
+        echo "  1. Move secrets to .env (already in .gitignore)"
+        echo "  2. Use os.environ['KEY_NAME'] in code"
+        echo "  3. If already committed, run:"
+        echo "     git filter-repo --replace-text <(echo 'OLD_SECRET==>REDACTED')"
+        echo ""
+        exit 1
+    fi
+done
+
+echo -e "${GREEN}Pre-push secret scan passed.${NC}"
+exit 0

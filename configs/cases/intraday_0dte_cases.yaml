@@ -1,0 +1,223 @@
+# 0DTE intraday experiment cases — Wed & Fri trading days (SPY 0DTE expiry days).
+# Full year 2025. Excludes US market holidays (Jan 1, Apr 18 Good Friday, Jul 4).
+# Early-close days kept: Nov 28 (Black Friday, 1pm close), Dec 24 (1pm close).
+#
+# To regenerate: python scripts/gen_0dte_dates.py --start 2025-01-01 --end 2025-12-31
+
+cases:
+  # January 2025
+  - ticker: SPY
+    date: "2025-01-03"
+  - ticker: SPY
+    date: "2025-01-08"
+  - ticker: SPY
+    date: "2025-01-10"
+  - ticker: SPY
+    date: "2025-01-15"
+  - ticker: SPY
+    date: "2025-01-17"
+  - ticker: SPY
+    date: "2025-01-22"
+  - ticker: SPY
+    date: "2025-01-24"
+  - ticker: SPY
+    date: "2025-01-29"
+  - ticker: SPY
+    date: "2025-01-31"
+  # February 2025
+  - ticker: SPY
+    date: "2025-02-05"
+  - ticker: SPY
+    date: "2025-02-07"
+  - ticker: SPY
+    date: "2025-02-12"
+  - ticker: SPY
+    date: "2025-02-14"
+  - ticker: SPY
+    date: "2025-02-19"
+  - ticker: SPY
+    date: "2025-02-21"
+  - ticker: SPY
+    date: "2025-02-26"
+  - ticker: SPY
+    date: "2025-02-28"
+  # March 2025
+  - ticker: SPY
+    date: "2025-03-05"
+  - ticker: SPY
+    date: "2025-03-07"
+  - ticker: SPY
+    date: "2025-03-12"
+  - ticker: SPY
+    date: "2025-03-14"
+  - ticker: SPY
+    date: "2025-03-19"
+  - ticker: SPY
+    date: "2025-03-21"
+  - ticker: SPY
+    date: "2025-03-26"
+  - ticker: SPY
+    date: "2025-03-28"
+  # April 2025 (Apr 18 Good Friday excluded)
+  - ticker: SPY
+    date: "2025-04-02"
+  - ticker: SPY
+    date: "2025-04-04"
+  - ticker: SPY
+    date: "2025-04-09"
+  - ticker: SPY
+    date: "2025-04-11"
+  - ticker: SPY
+    date: "2025-04-16"
+  - ticker: SPY
+    date: "2025-04-23"
+  - ticker: SPY
+    date: "2025-04-25"
+  - ticker: SPY
+    date: "2025-04-30"
+  # May 2025
+  - ticker: SPY
+    date: "2025-05-02"
+  - ticker: SPY
+    date: "2025-05-07"
+  - ticker: SPY
+    date: "2025-05-09"
+  - ticker: SPY
+    date: "2025-05-14"
+  - ticker: SPY
+    date: "2025-05-16"
+  - ticker: SPY
+    date: "2025-05-21"
+  - ticker: SPY
+    date: "2025-05-23"
+  - ticker: SPY
+    date: "2025-05-28"
+  - ticker: SPY
+    date: "2025-05-30"
+  # June 2025
+  - ticker: SPY
+    date: "2025-06-04"
+  - ticker: SPY
+    date: "2025-06-06"
+  - ticker: SPY
+    date: "2025-06-11"
+  - ticker: SPY
+    date: "2025-06-13"
+  - ticker: SPY
+    date: "2025-06-18"
+  - ticker: SPY
+    date: "2025-06-20"
+  - ticker: SPY
+    date: "2025-06-25"
+  - ticker: SPY
+    date: "2025-06-27"
+  # July 2025 (Jul 4 Independence Day excluded)
+  - ticker: SPY
+    date: "2025-07-02"
+  - ticker: SPY
+    date: "2025-07-09"
+  - ticker: SPY
+    date: "2025-07-11"
+  - ticker: SPY
+    date: "2025-07-16"
+  - ticker: SPY
+    date: "2025-07-18"
+  - ticker: SPY
+    date: "2025-07-23"
+  - ticker: SPY
+    date: "2025-07-25"
+  - ticker: SPY
+    date: "2025-07-30"
+  # August 2025
+  - ticker: SPY
+    date: "2025-08-01"
+  - ticker: SPY
+    date: "2025-08-06"
+  - ticker: SPY
+    date: "2025-08-08"
+  - ticker: SPY
+    date: "2025-08-13"
+  - ticker: SPY
+    date: "2025-08-15"
+  - ticker: SPY
+    date: "2025-08-20"
+  - ticker: SPY
+    date: "2025-08-22"
+  - ticker: SPY
+    date: "2025-08-27"
+  - ticker: SPY
+    date: "2025-08-29"
+  # September 2025
+  - ticker: SPY
+    date: "2025-09-03"
+  - ticker: SPY
+    date: "2025-09-05"
+  - ticker: SPY
+    date: "2025-09-10"
+  - ticker: SPY
+    date: "2025-09-12"
+  - ticker: SPY
+    date: "2025-09-17"
+  - ticker: SPY
+    date: "2025-09-19"
+  - ticker: SPY
+    date: "2025-09-24"
+  - ticker: SPY
+    date: "2025-09-26"
+  # October 2025
+  - ticker: SPY
+    date: "2025-10-01"
+  - ticker: SPY
+    date: "2025-10-03"
+  - ticker: SPY
+    date: "2025-10-08"
+  - ticker: SPY
+    date: "2025-10-10"
+  - ticker: SPY
+    date: "2025-10-15"
+  - ticker: SPY
+    date: "2025-10-17"
+  - ticker: SPY
+    date: "2025-10-22"
+  - ticker: SPY
+    date: "2025-10-24"
+  - ticker: SPY
+    date: "2025-10-29"
+  - ticker: SPY
+    date: "2025-10-31"
+  # November 2025 (Nov 28 Black Friday kept — early close 1pm ET)
+  - ticker: SPY
+    date: "2025-11-05"
+  - ticker: SPY
+    date: "2025-11-07"
+  - ticker: SPY
+    date: "2025-11-12"
+  - ticker: SPY
+    date: "2025-11-14"
+  - ticker: SPY
+    date: "2025-11-19"
+  - ticker: SPY
+    date: "2025-11-21"
+  - ticker: SPY
+    date: "2025-11-26"
+  - ticker: SPY
+    date: "2025-11-28"
+  # December 2025 (Dec 24 kept — early close 1pm ET)
+  - ticker: SPY
+    date: "2025-12-03"
+  - ticker: SPY
+    date: "2025-12-05"
+  - ticker: SPY
+    date: "2025-12-10"
+  - ticker: SPY
+    date: "2025-12-12"
+  - ticker: SPY
+    date: "2025-12-17"
+  - ticker: SPY
+    date: "2025-12-19"
+  - ticker: SPY
+    date: "2025-12-24"
+  - ticker: SPY
+    date: "2025-12-26"
+  - ticker: SPY
+    date: "2025-12-31"

@@ -1,0 +1,10 @@
+== Analysis Agent Output ==
+{ANALYSIS_JSON}
+
+== Available Contracts ==
+{TRADABLE_CONTRACTS}
+
+== Current Positions ==
+{POSITIONS_SUMMARY}
+
+Construct your order plan as a JSON array based on the analysis above.

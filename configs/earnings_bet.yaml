@@ -1,0 +1,63 @@
+experiment:
+  run_id: earnings_bet_2025
+  seed: 42
+  start: "2025-01-01"
+  end: "2025-12-31"
+  # Example universe grouped by sector; TSLA appears in two categories.
+  universe:
+    # Mega-cap Tech
+    - AAPL
+    - MSFT
+    - TSLA
+    - AMZN
+    - META
+    - NVDA
+    # Semiconductor
+    - AMD
+    - INTC
+    - MU
+    - AVGO
+    # Consumer & Streaming
+    - NFLX
+    - DIS
+    - NKE
+    # Cloud / SaaS
+    - CRM
+    - SNOW
+    - PLTR
+    # Fintech & Crypto-adjacent
+    - HOOD
+    - COIN
+    - SOFI
+    - PYPL
+    # High Beta / Growth
+    - SHOP
+    - RKLB
+    - SMCI
+    - CELH
+  frequency: "1d"
+
+strategy:
+  name: earnings_bet
+  params:
+    ssh_host: local
+    llm_provider: deepseek
+    llm_model: deepseek-chat
+    max_position_cost: 5000
+    max_contracts: 10
+    auto_close_at_t2: true
+    dte_min: 7
+    dte_max: 45
+
+risk:
+  flatten_before_close: false
+  max_daily_loss_pct: 0.05
+  max_exposure_pct: 0.3
+  max_orders_per_day: 20
+  allow_naked_short_options: true
+data_policy:
+  max_stale_minutes: 5
+  chain_filter_dte_min: 7
+  chain_filter_dte_max: 45
+  chain_filter_delta_min: 0.20
+  chain_filter_delta_max: 0.60

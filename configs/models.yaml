@@ -1,0 +1,85 @@
+# LLM Model Registry
+# Use {env:VAR_NAME} to reference environment variables for API keys.
+# Provider types: "openai_compatible" (works with DeepSeek, Gemini, OpenAI, Qwen, vLLM)
+#                 "anthropic" (Claude models)
+#                 "mock" (returns empty response, no API call)
+
+models:
+  deepseek-v3:
+    provider: openai_compatible
+    api_key: "{env:DEEPSEEK_API_KEY}"
+    base_url: "https://api.deepseek.com"
+    model: "deepseek-chat"
+    temperature: 0.5
+    max_tokens: 4096
+
+  gemini-2.5-flash:
+    provider: gemini
+    api_key: "{env:GEMINI_API_KEY}"
+    base_url: "https://generativelanguage.googleapis.com/v1beta/openai/"
+    model: "gemini-2.5-flash"
+    temperature: 0.5
+    max_tokens: 4096
+    reasoning_effort: "low"
+
+  gpt-4.1-mini:
+    provider: openai_compatible
+    api_key: "{env:OPENAI_API_KEY}"
+    base_url: "https://api.openai.com/v1"
+    model: "gpt-4.1-mini"
+    temperature: 0.5
+    max_tokens: 4096
+
+  gpt-5.6-terra:
+    provider: openai_compatible
+    api_key: "{env:OPENAI_API_KEY}"
+    base_url: "{env:OPENAI_BASE_URL}"
+    model: "gpt-5.6-terra"
+    temperature: 0.5
+    max_tokens: 4096
+
+  gemini-3-flash:
+    provider: anthropic
+    api_key: "{env:ANTHROPIC_AUTH_TOKEN}"
+    base_url: "{env:ANTHROPIC_BASE_URL}"
+    model: "gemini-3-flash"
+    temperature: 0.5
+    max_tokens: 2048
+
+  claude-sonnet-4:
+    provider: openai_compatible
+    api_key: "{env:ANTHROPIC_API_KEY}"
+    model: "claude-sonnet-4-20250514"
+    base_url: "https://api.anthropic.com/v1"
+    temperature: 0.5
+    max_tokens: 2048
+
+  qwen3-plus:
+    provider: openai_compatible
+    api_key: "{env:QWEN_API_KEY}"
+    base_url: "https://dashscope-intl.aliyuncs.com/compatible-mode/v1"
+    model: "qwen3.5-plus"
+    temperature: 0.5
+    max_tokens: 4096
+
+  qwen25-max:
+    provider: openai_compatible
+    api_key: "{env:QWEN_API_KEY}"
+    base_url: "https://api2.aigcbest.top/v1"
+    model: "qwen-max-2025-01-25"
+    temperature: 0.5
+    max_tokens: 4096
+
+  local-vllm:
+    provider: openai_compatible
+    api_key: "not-needed"
+    base_url: "http://localhost:8000/v1"
+    model: "meta-llama/Llama-3.1-8B-Instruct"
+    temperature: 0.5
+    max_tokens: 4096
+
+  mock:
+    provider: mock
+
+defaults:
+  model: deepseek-v3

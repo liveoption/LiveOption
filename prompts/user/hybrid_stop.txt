@@ -1,0 +1,5 @@
+Realized P&L: ${REALIZED}, {N_TRADES} trades, {N_WINS} wins
+Time remaining: {MINUTES}min
+Target: ${TARGET}, Limit: -${LIMIT}
+
+Respond: {{"stop": true|false, "rationale": "..."}}

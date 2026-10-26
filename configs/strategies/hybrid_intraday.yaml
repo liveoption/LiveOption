@@ -1,0 +1,26 @@
+# Hybrid Intraday Strategy Configuration
+# Best parameters from grid search (fine phase, 50 days)
+
+experiment:
+  run_id: hybrid_validation
+  seed: 42
+  frequency: "1m"
+  universe: [SPY]
+
+strategy:
+  name: hybrid_intraday
+  params:
+    # Rule engine thresholds (from best_params.json)
+    stop_loss_pct: -15.0
+    take_profit_pct: 50.0
+    trend_threshold_pct: 0.15
+    daily_profit_target: 100.0
+    daily_loss_limit: 50.0
+    qty_per_trade: 5
+
+    # LLM settings
+    decision_interval_minutes: 15
+
+risk:
+  flatten_before_close: true
+  flatten_minutes_before_close: 5

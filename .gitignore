@@ -1,0 +1,56 @@
+.DS_Store
+.env
+.env.*
+!.env.example
+__pycache__/
+*.pyc
+*.pyo
+.pytest_cache/
+*.egg-info/
+dist/
+build/
+.venv/
+results/
+.claude/
+.githooks/
+!.githooks/
+!.githooks/pre-push
+output/
+!trading/output/
+!trading/output/*.py
+output_*/
+logs/
+.gitnexus
+
+# Local worktrees
+.worktrees/
+
+# Web Run Launcher — transient prompt files written before subprocess spawn.
+.web-runs/
+.venv
+
+# Generated attribution data files
+data/attribution/*.jsonl
+/runs/
+/.liveoption/
+reports/
+supplyment/
+scripts/analysis/
+earning_benchmark/
+*.bundle
+/report.html
+/report.md
+/report.json
+
+# Local data, credentials and exports
+/data/
+/private/
+/artifacts/
+*.pem
+*.key
+*.p12
+*.pfx
+*.sqlite
+*.sqlite3
+*.db
+!tests/liveoption_web/db/fixtures/pre_migration.db
